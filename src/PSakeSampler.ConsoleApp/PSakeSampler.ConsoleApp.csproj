@@ -48,6 +48,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PSakeSampler.Nupkg1\PSakeSampler.Nupkg1.csproj">
+      <Project>{a3726fbd-2a27-48a8-b972-8ddafb97ba13}</Project>
+      <Name>PSakeSampler.Nupkg1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PSakeSampler.Nupkg2\PSakeSampler.Nupkg2.csproj">
+      <Project>{35f00335-5e0a-41da-87e0-449b279ba6f7}</Project>
+      <Name>PSakeSampler.Nupkg2</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

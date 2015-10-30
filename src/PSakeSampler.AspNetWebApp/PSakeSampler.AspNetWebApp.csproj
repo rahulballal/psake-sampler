@@ -174,6 +174,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PSakeSampler.Nupkg1\PSakeSampler.Nupkg1.csproj">
+      <Project>{a3726fbd-2a27-48a8-b972-8ddafb97ba13}</Project>
+      <Name>PSakeSampler.Nupkg1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PSakeSampler.Nupkg2\PSakeSampler.Nupkg2.csproj">
+      <Project>{35f00335-5e0a-41da-87e0-449b279ba6f7}</Project>
+      <Name>PSakeSampler.Nupkg2</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
