@@ -1,7 +1,9 @@
-
+function InfoHandler {
+  
+}
 
 function RestoreHandler {
-    
+
 }
 
 function CompileHandler{
@@ -27,4 +29,3 @@ function ZipHandler {
 function CleanupHandler{
 
 }
-

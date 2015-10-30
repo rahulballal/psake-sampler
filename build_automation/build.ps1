@@ -6,6 +6,10 @@ task default -depends local
 
 task local -depends restore,compile,utest,itest,pack,zip
 
+task info{
+  InfoHandler
+}
+
 task  restore{
     RestoreHandler
 }
