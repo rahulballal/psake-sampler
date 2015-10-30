@@ -1,15 +1,43 @@
-
 . ./properties.ps1
 . ./handlers.ps1
 
 
-task default -depends hello
+task default -depends cleanup,init,local
 
-task hello {
+task local -depends restore,compile,unittest,inttest,pack,zip
 
-	Handle-Hello
+task init {
+    InitHandler
 }
 
-task hello2{
-	Write-Host "Yup"
+task info{
+  InfoHandler
+}
+
+task  restore{
+    RestoreHandler
+}
+
+task compile{
+    CompileHandler
+}
+
+task unittest{
+  UTestHandler
+}
+
+task inttest{
+  ITestHandler
+}
+
+task pack{
+  PackHandler
+}
+
+task zip{
+  ZipHandler
+}
+
+task cleanup{
+  CleanupHandler
 }
