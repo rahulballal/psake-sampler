@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PSakeSampler.Nupkg1</id>
+    <version>1.0.0</version>
+    <title>PSakeSampler.Nupkg1</title>
+    <authors>Rahul Ballal</authors>
+    <owners>Rahul Ballal</owners>
+    <!--licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package generated using psake</description>
+    <releaseNotes>Blah blah</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>nuget psake</tags>
+  </metadata>
+</package>
