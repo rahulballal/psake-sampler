@@ -2,9 +2,13 @@
 . ./handlers.ps1
 
 
-task default -depends local
+task default -depends cleanup,init,local
 
-task local -depends restore,compile,utest,itest,pack,zip
+task local -depends restore,compile,unittest,inttest,pack,zip
+
+task init {
+    InitHandler
+}
 
 task info{
   InfoHandler
@@ -18,22 +22,22 @@ task compile{
     CompileHandler
 }
 
-task utest{
-
+task unittest{
+  UTestHandler
 }
 
-task itest{
-
+task inttest{
+  ITestHandler
 }
 
 task pack{
-
+  PackHandler
 }
 
 task zip{
-
+  ZipHandler
 }
 
 task cleanup{
-
+  CleanupHandler
 }
