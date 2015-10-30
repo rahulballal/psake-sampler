@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PSakeSampler.Nupkg;
+using PSakeSampler.Nupkg2;
 
 namespace PSakeSampler.AspNetWebApp.Controllers
 {
@@ -25,6 +28,16 @@ namespace PSakeSampler.AspNetWebApp.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Marvel()
+        {
+            return View(MarvelHeroes.GetHeroes());
+        }
+
+        public ActionResult DC()
+        {
+            return View(DCHeroes.GetHeroes());
         }
     }
 }

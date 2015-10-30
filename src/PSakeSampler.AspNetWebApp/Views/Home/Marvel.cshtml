@@ -1,0 +1,17 @@
+﻿@model IEnumerable<PSakeSampler.Nupkg.MarvelHero>
+
+@{
+    ViewBag.Title = "Marvel";
+    
+}
+
+<h2>Marvel Universe</h2>
+<ol>
+
+    @foreach (var item in Model)
+    {
+        <li>Name:@item.Name</li>
+    }
+    
+</ol>
+

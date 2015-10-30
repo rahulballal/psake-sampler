@@ -1,0 +1,16 @@
+﻿@model System.Collections.Generic.IEnumerable<PSakeSampler.Nupkg2.DcHero>
+
+@{
+    ViewBag.Title = "DC";
+}
+
+<h2>@ViewBag.Title Universe</h2>
+
+<ol>
+
+    @foreach (var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+
+</ol>
