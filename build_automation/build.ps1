@@ -15,7 +15,7 @@ task  restore{
 }
 
 task compile{
-
+    CompileHandler
 }
 
 task utest{
