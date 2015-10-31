@@ -9,7 +9,10 @@ function InfoHandler {
 }
 
 function RestoreHandler {
-    & $nuget restore $solution
+    exec {
+        &$nuget restore $solution
+    }
+    
 }
 
 function CompileHandler{
@@ -20,7 +23,8 @@ function CompileHandler{
 function UTestHandler{
   Foreach ($item in $unitTestTargets)
   {
-    & $xunit $item
+  exec {
+    &$xunit $item }
   }
 }
 
@@ -41,7 +45,7 @@ function ZipHandler {
     $list = $zipTargets[$key]
     Foreach ($item in $list)
     {
-       & $zip a -t7z -mmt -o$artifacts $key $item
+      exec { &$zip a -t7z -mmt -o$artifacts $key $item }
     }
   }
 }
