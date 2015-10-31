@@ -52,11 +52,11 @@ function ZipHandler {
 
 function CleanupHandler{
    if( Test-Path "$artifacts/buildOutput"){
-    Remove-Item -Path "$artifacts/buildOutput" -Recurse -Verbose -Force 
+    Remove-Item -Path "$artifacts/buildOutput" -Recurse  -Force 
    } 
 
    if(Test-Path "$artifacts/dist"){
-    Remove-Item -Path "$artifacts/dist" -Recurse -Verbose -Force
+    Remove-Item -Path "$artifacts/dist" -Recurse  -Force
    }
 
    
