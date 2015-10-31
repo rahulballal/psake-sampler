@@ -12,7 +12,7 @@ function RestoreHandler {
     exec {
         &$nuget restore $solution
     }
-    
+
 }
 
 function CompileHandler{
@@ -35,7 +35,7 @@ function ITestHandler {
 function PackHandler{
  Foreach ($item in $nugetTargets)
  {
-   & $nuget pack $item -IncludeReferencedProjects -OutputDirectory $dist
+   & $nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
  }
 }
 
@@ -52,14 +52,14 @@ function ZipHandler {
 
 function CleanupHandler{
    if( Test-Path "$artifacts/buildOutput"){
-    Remove-Item -Path "$artifacts/buildOutput" -Recurse  -Force 
-   } 
+    Remove-Item -Path "$artifacts/buildOutput" -Recurse  -Force
+   }
 
    if(Test-Path "$artifacts/dist"){
     Remove-Item -Path "$artifacts/dist" -Recurse  -Force
    }
 
-   
+
 }
 
 function InitHandler {
