@@ -1,7 +1,7 @@
 # psake-sampler
 All things [psake](https://github.com/psake/psake)
 
-<img src="https://ci.appveyor.com/project/rahulballal/psake-sampler/branch/master" >
+<image src="https://ci.appveyor.com/api/projects/status/85bivvth3x0bjquk" width="300" />
 
 ## Folder Structure (Derived from [repo-templify](https://github.com/rahulballal/repo-templify.git))
 
