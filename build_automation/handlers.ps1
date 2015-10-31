@@ -9,7 +9,10 @@ function InfoHandler {
 }
 
 function RestoreHandler {
-    & $nuget restore $solution
+    exec {
+        &$nuget restore $solution
+    }
+
 }
 
 function CompileHandler{
@@ -20,7 +23,8 @@ function CompileHandler{
 function UTestHandler{
   Foreach ($item in $unitTestTargets)
   {
-    & $xunit $item
+  exec {
+    &$xunit $item }
   }
 }
 
@@ -31,7 +35,7 @@ function ITestHandler {
 function PackHandler{
  Foreach ($item in $nugetTargets)
  {
-   & $nuget pack $item -IncludeReferencedProjects -OutputDirectory $dist
+   & $nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
  }
 }
 
@@ -41,21 +45,21 @@ function ZipHandler {
     $list = $zipTargets[$key]
     Foreach ($item in $list)
     {
-       & $zip a -t7z -mmt -o$artifacts $key $item
+      exec { &$zip a -t7z -mmt -o$artifacts $key $item }
     }
   }
 }
 
 function CleanupHandler{
    if( Test-Path "$artifacts/buildOutput"){
-    Remove-Item -Path "$artifacts/buildOutput" -Recurse -Verbose -Force 
-   } 
-
-   if(Test-Path "$artifacts/dist"){
-    Remove-Item -Path "$artifacts/dist" -Recurse -Verbose -Force
+    Remove-Item -Path "$artifacts/buildOutput" -Recurse  -Force
    }
 
-   
+   if(Test-Path "$artifacts/dist"){
+    Remove-Item -Path "$artifacts/dist" -Recurse  -Force
+   }
+
+
 }
 
 function InitHandler {

@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build_automation", "build_a
 	ProjectSection(SolutionItems) = preProject
 		build_automation\build.ps1 = build_automation\build.ps1
 		build_automation\drop-your-build-scripts-here.txt = build_automation\drop-your-build-scripts-here.txt
-		handlers.ps1 = handlers.ps1
+		build_automation\handlers.ps1 = build_automation\handlers.ps1
 		build_automation\properties.ps1 = build_automation\properties.ps1
 	EndProjectSection
 EndProject
