@@ -20,3 +20,4 @@ Use scriptblock for taskNameFormat
 $config.taskNameFormat= { param($taskName) "Executing $taskName at $(get-date)" }
 #>
 $config.taskNameFormat={param($taskName) "`n--------------Running $taskName at $(get-date)------------------`n"}
+$config.buildFileName="build.ps1"
