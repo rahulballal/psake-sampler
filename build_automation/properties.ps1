@@ -29,5 +29,7 @@ properties {
     $xunit= join-path -path $rootDir -childpath "tools/xunit.runner.console.2.1.0/tools/xunit.console.exe"
     $xunitTestDll= "$buildOutput/PSakeSampler.XunitTests.dll"
     $unitTestTargets=@($xunitTestDll)
+	
+	$arrayOfThings="rahul","ballal"
    
 }
