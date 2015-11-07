@@ -17,13 +17,13 @@ function RestoreHandler {
 
 function CompileHandler{
   Framework $frameworkVersion
-  EXEC { msbuild $solution /t:Rebuild /p:Configuration=Release /v:Minimal /p:OutDir="$artifacts/buildOutput" }
+  EXEC { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:$buildVerbosity /p:OutDir=$buildOutput }
 }
 
 function UTestHandler{
   Foreach ($item in $unitTestTargets)
   {
-  exec {
+  EXEC {
     &$xunit $item }
   }
 }
@@ -35,7 +35,9 @@ function ITestHandler {
 function PackHandler{
  Foreach ($item in $nugetTargets)
  {
-   & $nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
+  EXEC{
+   &$nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
+  }
  }
 }
 
@@ -51,19 +53,19 @@ function ZipHandler {
 }
 
 function CleanupHandler{
-   if( Test-Path "$artifacts/buildOutput"){
-    Remove-Item -Path "$artifacts/buildOutput" -Recurse  -Force
+   if( Test-Path $buildOutput){
+    Remove-Item -Path $buildOutput -Recurse  -Force
    }
 
-   if(Test-Path "$artifacts/dist"){
-    Remove-Item -Path "$artifacts/dist" -Recurse  -Force
+   if(Test-Path $dist){
+    Remove-Item -Path $dist -Recurse  -Force
    }
 
 
 }
 
 function InitHandler {
-    New-Item -ItemType Directory -Force -Path $artifacts/buildOutput
-    New-Item -ItemType Directory -Force -Path $artifacts/dist
+    New-Item -ItemType Directory -Force -Path $buildOutput
+    New-Item -ItemType Directory -Force -Path $dist
 
 }

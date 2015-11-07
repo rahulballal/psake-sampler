@@ -1,5 +1,5 @@
-. ./properties.ps1
-. ./handlers.ps1
+include ./properties.ps1
+include ./handlers.ps1
 
 
 task default -depends cleanup,init,local

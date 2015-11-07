@@ -1,0 +1,11 @@
+version: 1.0.{build}
+build_script:
+- cmd: >-
+    cd build_automation
+
+    psake.cmd build.ps1
+test: off
+artifacts:
+- path: artifact/dist/PSakeSampler.ConsoleApp.7z
+- path: artifact/dist/PSakeSampler.WebApp.7z
+- path: artifact/dist/*.nupkg
