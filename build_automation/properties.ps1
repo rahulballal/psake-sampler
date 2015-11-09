@@ -3,6 +3,8 @@ properties {
     $frameworkVersion="4.5.1"
     $buildConfiguration="Release"
     $buildTarget="Rebuild"
+        
+    # available values are "Detailed" "Diagnostic" "Minimal" "Normal" "Quiet"
     $buildVerbosity="Minimal"
     # options are x86 or x64 or Any CPU
     $buildPlatform="Any CPU"

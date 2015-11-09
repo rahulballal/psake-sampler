@@ -4,9 +4,9 @@
 function Get-Info
 {
   $dirs = $rootDir, $solution, $artifacts, $logs, $nuget,$zip,$xunit
-  Foreach ($item in $dirs)
+  foreach ($item in $dirs)
   {
-    If (test-path -path $item)
+    if (test-path -path $item)
     {
       Write-Output "$item Exists"
     }
@@ -33,15 +33,16 @@ function Invoke-Init
 function Invoke-Compile
 {
   Framework $frameworkVersion
-  EXEC { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:$buildVerbosity /p:OutDir=$buildOutput /p:Platform=$buildPlatform }
+  exec { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:"$buildVerbosity" /p:OutDir=$buildOutput /p:Platform=$buildPlatform  }
 }
 
 function Invoke-UnitTest
 {
-  Foreach ($item in $unitTestTargets)
+  foreach ($item in $unitTestTargets)
   {
-  EXEC {
-    &$xunit $item }
+  exec {
+      &$xunit $item 
+    }
   }
 }
 
@@ -59,9 +60,9 @@ function Invoke-NugetRestore
 
 function Invoke-NugetPack
 {
-   Foreach ($item in $nugetTargets)
+   foreach ($item in $nugetTargets)
    {
-    EXEC{
+    exec{
      &$nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
     }
    }
@@ -69,12 +70,14 @@ function Invoke-NugetPack
 
 function Invoke-7Zip
 {
-  Foreach ($key in $zipTargets.Keys)
+  foreach($key in $zipTargets.Keys)
   {
     $list = $zipTargets[$key]
-    Foreach ($item in $list)
+    foreach ($item in $list)
     {
       exec { &$zip a -t7z -mmt -o$artifacts $key $item }
     }
   }
 }
+
+export-modulemember -function Get-Info, Invoke-Init, Invoke-Cleanup, Invoke-7Zip, Invoke-Compile, Invoke-IntTest, Invoke-UnitTest, Invoke-NugetPack, Invoke-NugetRestore
