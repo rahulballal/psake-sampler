@@ -1,52 +1,42 @@
-include ./properties.ps1
-include ./handlers.ps1
+import-module "./handlers.psm1"
 
 
 task default -depends cleanup,init,local
 
 task local -depends compile,unittest,inttest,pack,zip
 
-task init -description "Initialize output folders"
-{
-    Do-Init
+task init {
+    Invoke-Init
 }
 
-task info -description "Prints information about the current working folders"
-{
+task info {
     Get-Info
 }
 
-task  restore -description "Performs nuget restore"
-{
-    Do-NugetRestore
+task  restore {
+    Invoke-NugetRestore
 }
 
-task compile -depends init,restore -description "Performs MSBuild operation"
-{
-    Do-Compile
+task compile -depends init,restore {
+    Invoke-Compile
 }
 
-task unittest -description "Run unit tests using configured test runner"
-{
-    Do-UnitTest
+task unittest {
+    Invoke-UnitTest
 }
 
-task inttest -description "Run integration tests using the configured test runner"
-{
-    Do-IntTest
+task inttest {
+    Invoke-IntTest
 }
 
-task pack -description "Performs nuget pack command"
-{
-    Do-NugetPack
+task pack {
+    Invoke-NugetPack
 }
 
-task zip -description "Performs nuget pack command"
-{
-    Do-7Zip
+task zip {
+    Invoke-7Zip
 }
 
-task cleanup - description 'Cleanup the output folders' 
-{
-    Do-Cleanup
+task cleanup -description "Cleanup the output folders" {
+    Invoke-Cleanup
 }

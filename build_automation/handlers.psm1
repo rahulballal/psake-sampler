@@ -1,15 +1,17 @@
+. ./properties.ps1
 function Get-Info
 {
-    Write-Host $rootDir "Exists : " (test-path -path $rootDir)
-    Write-Host $solution "Exists : " (test-path -path $solution)
-    Write-Host $artifacts "Exists : " (test-path -path $artifacts)
-    Write-Host $logs "Exists : " (test-path -path $logs)
-    Write-Host $nuget "Exists : " (test-path -path $nuget)
-    Write-Host $zip "Exists : " (test-path -path $zip)
-    Write-Host $xunit "Exists : " (test-path -path $xunit)
+  $dirs = $rootDir, $solution, $artifacts, $logs, $nuget,$zip,$xunit
+  Foreach ($item in $dirs)
+  {
+    If (test-path -path $item)
+    {
+      Write-Output "$item Exists"
+    }
+  }
 }
 
-function Do-Cleanup
+function Invoke-Cleanup
 {
    if( Test-Path $buildOutput){
     Remove-Item -Path $buildOutput -Recurse  -Force
@@ -20,19 +22,19 @@ function Do-Cleanup
    }
 }
 
-function Do-Init 
+function Invoke-Init
 {
     New-Item -ItemType Directory -Force -Path $buildOutput
     New-Item -ItemType Directory -Force -Path $dist
 }
 
-function Do-Compile
+function Invoke-Compile
 {
   Framework $frameworkVersion
-  EXEC { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:$buildVerbosity /p:OutDir=$buildOutput }
+  EXEC { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:$buildVerbosity /p:OutDir=$buildOutput /p:Platform=$buildPlatform }
 }
 
-function Do-UnitTest
+function Invoke-UnitTest
 {
   Foreach ($item in $unitTestTargets)
   {
@@ -41,19 +43,19 @@ function Do-UnitTest
   }
 }
 
-function Do-IntTest 
+function Invoke-IntTest
 {
-  Write-Host "Task Not Implemented"
+  Write-Output "Task Not Implemented"
 }
 
-function Do-NugetRestore 
+function Invoke-NugetRestore
 {
     exec {
         &$nuget restore $solution
     }
 }
 
-function Do-NugetPack
+function Invoke-NugetPack
 {
    Foreach ($item in $nugetTargets)
    {
@@ -63,7 +65,7 @@ function Do-NugetPack
    }
 }
 
-function Do-7Zip 
+function Invoke-7Zip
 {
   Foreach ($key in $zipTargets.Keys)
   {
@@ -74,5 +76,3 @@ function Do-7Zip
     }
   }
 }
-
-
