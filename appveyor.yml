@@ -6,7 +6,7 @@ build_script:
 - cmd: >-
     cd build_automation
 
-    psake.cmd build.ps1
+    psake.cmd
 test: off
 artifacts:
 - path: artifact/dist/PSakeSampler.ConsoleApp.7z
