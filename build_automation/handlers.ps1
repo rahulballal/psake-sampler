@@ -1,26 +1,39 @@
-function InfoHandler {
-  Write-Host $rootDir "Exists : " (test-path -path $rootDir)
-  Write-Host $solution "Exists : " (test-path -path $solution)
-  Write-Host $artifacts "Exists : " (test-path -path $artifacts)
-  Write-Host $logs "Exists : " (test-path -path $logs)
-  Write-Host $nuget "Exists : " (test-path -path $nuget)
-  Write-Host $zip "Exists : " (test-path -path $zip)
-  Write-Host $xunit "Exists : " (test-path -path $xunit)
+function Get-Info
+{
+    Write-Host $rootDir "Exists : " (test-path -path $rootDir)
+    Write-Host $solution "Exists : " (test-path -path $solution)
+    Write-Host $artifacts "Exists : " (test-path -path $artifacts)
+    Write-Host $logs "Exists : " (test-path -path $logs)
+    Write-Host $nuget "Exists : " (test-path -path $nuget)
+    Write-Host $zip "Exists : " (test-path -path $zip)
+    Write-Host $xunit "Exists : " (test-path -path $xunit)
 }
 
-function RestoreHandler {
-    exec {
-        &$nuget restore $solution
-    }
+function Do-Cleanup
+{
+   if( Test-Path $buildOutput){
+    Remove-Item -Path $buildOutput -Recurse  -Force
+   }
 
+   if(Test-Path $dist){
+    Remove-Item -Path $dist -Recurse  -Force
+   }
 }
 
-function CompileHandler{
+function Do-Init 
+{
+    New-Item -ItemType Directory -Force -Path $buildOutput
+    New-Item -ItemType Directory -Force -Path $dist
+}
+
+function Do-Compile
+{
   Framework $frameworkVersion
   EXEC { msbuild $solution /t:$buildTarget /p:Configuration=$buildConfiguration /v:$buildVerbosity /p:OutDir=$buildOutput }
 }
 
-function UTestHandler{
+function Do-UnitTest
+{
   Foreach ($item in $unitTestTargets)
   {
   EXEC {
@@ -28,20 +41,30 @@ function UTestHandler{
   }
 }
 
-function ITestHandler {
-  Write-Host "Not available"
+function Do-IntTest 
+{
+  Write-Host "Task Not Implemented"
 }
 
-function PackHandler{
- Foreach ($item in $nugetTargets)
- {
-  EXEC{
-   &$nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
-  }
- }
+function Do-NugetRestore 
+{
+    exec {
+        &$nuget restore $solution
+    }
 }
 
-function ZipHandler {
+function Do-NugetPack
+{
+   Foreach ($item in $nugetTargets)
+   {
+    EXEC{
+     &$nuget pack $item -IncludeReferencedProjects -Build -OutputDirectory $dist
+    }
+   }
+}
+
+function Do-7Zip 
+{
   Foreach ($key in $zipTargets.Keys)
   {
     $list = $zipTargets[$key]
@@ -52,20 +75,4 @@ function ZipHandler {
   }
 }
 
-function CleanupHandler{
-   if( Test-Path $buildOutput){
-    Remove-Item -Path $buildOutput -Recurse  -Force
-   }
 
-   if(Test-Path $dist){
-    Remove-Item -Path $dist -Recurse  -Force
-   }
-
-
-}
-
-function InitHandler {
-    New-Item -ItemType Directory -Force -Path $buildOutput
-    New-Item -ItemType Directory -Force -Path $dist
-
-}
