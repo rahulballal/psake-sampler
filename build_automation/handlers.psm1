@@ -1,4 +1,6 @@
+# dot(.) sourcing the properies file
 . ./properties.ps1
+
 function Get-Info
 {
   $dirs = $rootDir, $solution, $artifacts, $logs, $nuget,$zip,$xunit
