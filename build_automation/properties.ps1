@@ -3,7 +3,11 @@ properties {
     $frameworkVersion="4.5.1"
     $buildConfiguration="Release"
     $buildTarget="Rebuild"
+        
+    # available values are "Detailed" "Diagnostic" "Minimal" "Normal" "Quiet"
     $buildVerbosity="Minimal"
+    # options are x86 or x64 or Any CPU
+    $buildPlatform="Any CPU"
     $solution=(Get-Item "../psake-sampler-ci.sln").FullName
     $rootDir=(Get-Item $solution).Directory
     $artifacts= join-path -path (Get-Item $solution).Directory -childpath artifact
@@ -29,7 +33,5 @@ properties {
     $xunit= join-path -path $rootDir -childpath "tools/xunit.runner.console.2.1.0/tools/xunit.console.exe"
     $xunitTestDll= "$buildOutput/PSakeSampler.XunitTests.dll"
     $unitTestTargets=@($xunitTestDll)
-	
-	$arrayOfThings="rahul","ballal"
-   
+
 }

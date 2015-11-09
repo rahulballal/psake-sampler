@@ -1,43 +1,39 @@
-include ./properties.ps1
-include ./handlers.ps1
-
-
 task default -depends cleanup,init,local
 
-task local -depends restore,compile,unittest,inttest,pack,zip
+task local -depends compile,unittest,inttest,pack,zip -description "Use this task for local development purpose" -alias "lo"
 
-task init {
-    InitHandler
+task init -description "Creates initial folders inside the artifact folder" {
+    Invoke-Init
 }
 
-task info{
-  InfoHandler
+task info -description "Check if all necessary folder structure and variables exist" {
+    Get-Info
 }
 
-task  restore{
-    RestoreHandler
+task  restore -description "Restore nuget packages" -alias "nres" {
+    Invoke-NugetRestore
 }
 
-task compile{
-    CompileHandler
+task compile -depends init,restore -description "Compile the configured solution" -alias "build" {
+    Invoke-Compile
 }
 
-task unittest{
-  UTestHandler
+task unittest -description "Run unit tests" -alias "unit" {
+    Invoke-UnitTest
 }
 
-task inttest{
-  ITestHandler
+task inttest -description "Run integration tests" -alias "int" {
+    Invoke-IntTest
 }
 
-task pack{
-  PackHandler
+task pack -description "Create nuget packages" -alias "npac" {
+    Invoke-NugetPack
 }
 
-task zip{
-  ZipHandler
+task zip -description "Create 7zip artifact packages" -alias "7z" {
+    Invoke-7Zip
 }
 
-task cleanup{
-  CleanupHandler
+task cleanup -description "Cleanup the output folders" -alias "clean" {
+    Invoke-Cleanup
 }
